@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="pl"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Co może powstać z wektorów i krzywych</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Zobaczyć matematyke: Co może powstać z wektorów i krzywych" />
+		<meta name="keywords" content="grafika wektorowa, zobaczyć matematykę, geometria" />
+		<meta name="author" content="Bąk Cezary" />
+
+		<link rel="shortcut icon" href="img/logo.ico">
+		<link href='http://fonts.googleapis.com/css?family=Alegreya&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/magnific-popup.css">
+		<link rel="stylesheet" href="css/style.css">
+
+		<script type="text/x-mathjax-config;executed=true">
+        MathJax.Hub.Config({SVG:{font:"STIX-Web",scale: 90,blacker: 1}});</script>
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG&amp;locale=pl"></script>
+		<!-- FOR IE9 below -->
+		<!--[if lt IE 9]>
+		<script src="js/modernizr.js"></script>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript">var stronavariable = true;</script>
+	</head>
+	<body>
+	<div class="banner-background">&nbsp;</div>
+		<header id="header">
+
+			<div id="logo" class="text-center">
+				<a href="index.html">
+					<img src="img/tytul.png" width="900" height="350" alt="Co może powstać z wektorów i krzywych">
+				</a>
+				
+			</div>
+			<div id="main-nav">
+				<nav id="nav">
+					<ul>
+						<li class="active">
+							<a href="index.html">Temat</a>
+						</li>
+						<li>
+							<a href="bibliografia.html" >Bibliografia</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<main>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+					Moja praca porusza zagadnienia związane z pojęciem wektora i krzywej przedstawionej w postaci parametrycznej.<br/> Po przedstawieniu podstaw teoretycznych przedstawię znane krzywe matematyczne oraz skrypt służący do rysowania własnych krzywych.<br/> Następnie podam podstawowe wiadomości dotyczące krzywych Béziera i zaprezentuję własny algorytm tworzenia krzywych bazujący na pojęciu wektora. Wykorzystując wzory parametryczne pokażę jak można z ich pomocą wygenerować napis "ZOBACZYĆ MATEMATYKĘ". Na koniec podam obmyślony przeze mnie sposób kodowania tekstu oparty na pojęciu wektora.
+					<br/>
+					<br/>
+					Tak więc zapraszam do miłej lektury!
+					</div>
+				</div>
+			</div>
+
+			<div class="row div-breaker">
+    <div style="color: white">Zagadnienie 1:
+        <br />
+        <h1>Pojęcie wektora</h1>
+    </div>
+</div>
+
+<div class="container div-temat">
+
+	<div class="inside">
+
+            <div class="row">
+            	 
+                Wektor jest to wielkość posiadająca:
+                <div class="ilus">
+                	<img src="img/Wektor_by_Zureks.svg" alt="wektor">
+	               	<p class="adno">źródło: wikipedia.org</p>
+                </div>
+
+				<ul style="list-style-type: none;">
+		            <li>- moduł (długość)
+		            </li>
+		            <li>- zwrot 
+		            </li>
+		            <li>- punkt zaczepienia
+		            </li>
+		            <li>- kierunek
+		            </li>
+		        </ul>
+
+
+                
+                <p>
+                    Graficznie przedstawia się je często jako odcinek o wyróżnionym kierunku, zwykle jako strzałkę, której długość symbolizuje moduł, kierunek odpowiada kierunkowi prostej zawierającej odcinek i zwrot wskazujący grot strzałki.<br /><br />
+                    W układzie współrzędnych przez wektor rozumiemy uporządkowaną parę punktów.
+                    Słowo "uporządkowaną" oznacza tutaj, że jeden z punktów uznajemy za początek a drugi za koniec wektora.<br/>
+
+                    Jak zapisywać współrzędne wektora:<br /><br />
+
+                    <div class="well">
+                        Przyjmijmy, że punkt <strong>A</strong> jest początkiem wektora i punkt <strong>B</strong> jest jego końcem, wtedy współrzędne wektora
+						<math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mi>AB</mi><mo>→</mo></mover></math>
+                        są równe:<br /><br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mi>AB</mi><mo>→</mo></mover></math>=[<math xmlns="http://www.w3.org/1998/Math/MathML"><msub>
+			    <mi>x</mi>
+			    <mi>B</mi>
+			  </msub>
+			</math>-<math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>x</mi>
+			    <mi>A</mi>
+			  </msub>
+			</math>,<math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>y</mi>
+			    <mi>B</mi>
+			  </msub>
+			</math>-<math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>y</mi>
+			    <mi>A</mi>
+			  </msub>
+			</math>]
+			<br />
+                        <br />
+                        inczej:<br />
+                        <br />
+                        <math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <mover>
+			    <mi>u</mi>
+			    <mo>→</mo>
+			  </mover>
+			</math>
+                        =[<math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>u</mi>
+			    <mi>x</mi>
+			  </msub>
+			</math>,<math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>u</mi>
+			    <mi>y</mi>
+			  </msub>
+			</math>]
+			<br/><br/>
+			<p>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>u</mi>
+			    <mi>x</mi>
+			  </msub>
+			</math>
+                =
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>x</mi>
+			    <mi>B</mi>
+			  </msub>
+			</math>
+                -<math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>x</mi>
+			    <mi>A</mi>
+			  </msub>
+			</math>
+			<br/>
+                            <math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>u</mi>
+			    <mi>y</mi>
+			  </msub>
+			</math>
+                            =<math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>y</mi>
+			    <mi>B</mi>
+			  </msub>
+			</math>-<math xmlns="http://www.w3.org/1998/Math/MathML">
+			  <msub>
+			    <mi>y</mi>
+			    <mi>A</mi>
+			  </msub>
+			</math>
+                    </div>
+        </div>
+    </div>
+</div>
+
+
+			<div class="row div-breaker"><div style="color: white">Zagadnienie 2: <br/><h1>Działania na wektorach</h1></div></div>
+
+			<div class="container div-temat">
+				<div class="inside">
+					<div class="row">
+					
+					<h3>
+						W swojej pracy wykorzystałem działania sumy wektorów oraz mnożenia wektora przez liczbę. </h3>
+
+
+
+
+Dodawanie wektorów:<br/>
+<div class="ilus">
+	<img src="img/rys5.png" alt="wektor">
+</div>
+Aby dodać dwa wektory należy zadbać o to, aby koniec jednego był początkiem drugiego wektora (przesunięcia równoległe wzdłuż osi nie zmieniają współrzędnych wektora).
+<br/>Jeśli wektor 
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mi>u</mi><mo>&#x21C0;</mo></mover><mo>=</mo><mfenced open="[" close="]"><mrow><msub><mi>u</mi><mi>x</mi></msub><mo>,</mo><msub><mi>u</mi><mi>y</mi></msub></mrow></mfenced></math> oraz <math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mi>w</mi><mo>&#x21C0;</mo></mover><mo>=</mo><mfenced open="[" close="]"><mrow><msub><mi>w</mi><mi>x</mi></msub><mo>,</mo><msub><mi>w</mi><mi>y</mi></msub></mrow></mfenced><mo>&#xA0;</mo><mo>&#xA0;</mo><mo>&#xA0;</mo></math> to  &nbsp;<math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mi>u</mi><mo>&#x21C0;</mo></mover><mo>&#xA0;</mo><mo>+</mo><mo>&#xA0;</mo><mover><mi>w</mi><mo>&#x21C0;</mo></mover><mo>=</mo><mfenced open="[" close="]"><mrow><msub><mi>u</mi><mi>x</mi></msub><mo>+</mo><msub><mi>w</mi><mi>x</mi></msub><mo>,</mo><msub><mi>u</mi><mi>y</mi></msub><mo>+</mo><msub><mi>w</mi><mi>y</mi></msub></mrow></mfenced><mo>&#xA0;</mo><mo>&#xA0;</mo><mo>&#xA0;</mo></math>
+
+<br/>
+<br/>
+
+Mnożenie wektora przez liczbę:<br/>
+ Jeśli <math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mi>u</mi><mo>&#x21C0;</mo></mover><mo>&#xA0;</mo><mo>=</mo><mfenced open="[" close="]"><mrow><msub><mi>u</mi><mi>x</mi></msub><mo>,</mo><msub><mi>u</mi><mi>y</mi></msub></mrow></mfenced><mo>&#xA0;</mo></math> to <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi><mo>&#xB7;</mo><mover><mi>u</mi><mo>&#x21C0;</mo></mover><mo>&#xA0;</mo><mo>=</mo><mfenced open="[" close="]"><mrow><mi>k</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>x</mi></msub><mo>,</mo><mi>k</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>y</mi></msub></mrow></mfenced><mo>&#xA0;</mo><mo>&#xA0;</mo><mo>&#xA0;</mo></math>
+
+ <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi><mo>&#x2208;</mo><mi mathvariant="normal">&#x211D;</mi></math>
+ <br/>
+Mnożąc wektor przez liczbę możemy go odpowiednio: wydłużać, skracać lub zmieniać jego zwrot w zależności od liczby <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math>.
+						
+					</div>
+				</div>
+			</div>
+
+			
+			<div class="row div-breaker"><div style="color: white">Zagadnienie 3: <br/><h1>Wybrane przekształcenia w układzie współrzędnych</h1></div></div>
+
+			<div class="container div-temat">
+				<div class="inside">
+					<div class="row">
+						W poniższych wzorach x, y to współrzędne punktu przekształcanego natomiast x', y' to współrzędne obrazu punktu (x,y).<br/><br/>
+						Symetria osiowa wzgłędem osi OX
+
+						<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>'</mo><mo>=</mo><mi>x</mi></mtd></mtr><mtr><mtd><mi>y</mi><mo>'</mo><mo>=</mo><mo>-</mo><mi>y</mi></mtd></mtr></mtable></mfenced></math>
+						<br/><br/>
+
+						Symetria osiowa wzgłędem osi OY
+
+						<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>'</mo><mo>=</mo><mo>-</mo><mi>x</mi></mtd></mtr><mtr><mtd><mi>y</mi><mo>'</mo><mo>=</mo><mi>y</mi></mtd></mtr></mtable></mfenced></math>
+						<br/><br/>
+
+						Obrót o kąt <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>&#x3B1;</mi></math>
+
+						<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>'</mo><mo>=</mo><mi>x</mi><mo>&#xB7;</mo><mi>cos</mi><mi>&#x3B1;</mi><mo>-</mo><mi>y</mi><mo>&#xB7;</mo><mi>sin</mi><mi>&#x3B1;</mi></mtd></mtr><mtr><mtd><mi>y</mi><mo>'</mo><mo>=</mo><mi>x</mi><mo>&#xB7;</mo><mi>sin</mi><mi>&#x3B1;</mi><mo>+</mo><mi>y</mi><mo>&#xB7;</mo><mi>cos</mi><mi>&#x3B1;</mi></mtd></mtr></mtable></mfenced></math>
+						<br/><br/>
+
+
+						Przesunięcie o wektor
+
+						<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>'</mo><mo>=</mo><mi>x</mi><mo>+</mo><msub><mi>u</mi><mi>x</mi></msub></mtd></mtr><mtr><mtd><mi>y</mi><mo>'</mo><mo>=</mo><mi>y</mi><mo>+</mo><msub><mi>u</mi><mi>y</mi></msub></mtd></mtr></mtable></mfenced></math>
+					</div>
+				</div>
+			</div>
+
+			<div class="row div-breaker"><div style="color: white">Zagadnienie 4: <br/><h1>Przedstawienie parametryczne krzywych</h1></div></div>
+
+			<div class="container div-temat">
+				<div class="inside">
+					<div class="row">
+					
+	W szkole średniej najczęściej mamy do czynienia z funkcją zadaną w postaci <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>y</mi><mo>=</mo><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo></math>.<img src="img/rys4.png" alt="ilustracja" class="ilus"> Punkty należące do wykresu funkcji można zapisać jako <math xmlns="http://www.w3.org/1998/Math/MathML"><mo>(</mo><mi>x</mi><mo>,</mo><mi>f</mi><mo>(</mo><mi>x</mi><mo>)</mo><mo>)</mo><mo>&#xA0;</mo><mi>d</mi><mi>l</mi><mi>a</mi><mo>&#xA0;</mo><mi>x</mi><mo>&#x2208;</mo><mo>[</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>]</mo></math>.
+	 Jeśli teraz w miejsce x-owej współrzędnej wstawimy funkcję <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo></math> to otrzymamy rodzinę punktów postaci  
+
+	 <math xmlns="http://www.w3.org/1998/Math/MathML"><mo>(</mo><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>,</mo><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>)</mo><mo>&#xA0;</mo><mi>d</mi><mi>l</mi><mi>a</mi><mo>&#xA0;</mo><mi>t</mi><mo>&#x2208;</mo><mo>[</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>]</mo></math>.
+
+	 Dostajemy w ten sposób bardziej ogólne odwzorowanie odcinka <math xmlns="http://www.w3.org/1998/Math/MathML"><mo>[</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>]</mo></math> w płaszczyznę <math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>R</mi><mn>2</mn></msup></math>. 
+
+	<br/>Układ równań  <br/>
+	<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>=</mo><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo></mtd></mtr><mtr><mtd><mi>y</mi><mo>=</mo><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo></mtd></mtr></mtable></mfenced><mi>d</mi><mi>l</mi><mi>a</mi><mo>&#xA0;</mo><mi>t</mi><mo>&#x2208;</mo><mo>[</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>]</mo></math>
+	<br/>
+	 przedstawia parametryczny opis krzywej. W dalszej części pracy stosował będę parametryczny opis odcinka.<br/>
+	 Niech dane będą są dwa punkty 
+	<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi><mo>=</mo><mo>(</mo><msub><mi>x</mi><mi>A</mi></msub><mo>,</mo><msub><mi>y</mi><mi>A</mi></msub><mo>)</mo><mo>&#xA0;</mo><mi>o</mi><mi>r</mi><mi>a</mi><mi>z</mi><mo>&#xA0;</mo><mi>B</mi><mo>=</mo><mo>(</mo><msub><mi>x</mi><mi>B</mi></msub><mo>,</mo><msub><mi>y</mi><mi>B</mi></msub><mo>)</mo><mo>&#xA0;</mo><mo>&#xA0;</mo></math>.
+	Oznaczmy przez  <br/><math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mi>u</mi><mo>&#x21C0;</mo></mover><mo>=</mo><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>&#x21C0;</mo></mover><mo>=</mo><mo>[</mo><msub><mi>x</mi><mi>B</mi></msub><mo>-</mo><msub><mi>x</mi><mi>A</mi></msub><mo>,</mo><msub><mi>y</mi><mi>B</mi></msub><mo>-</mo><msub><mi>y</mi><mi>A</mi></msub><mo>]</mo><mo>=</mo><mo>[</mo><msub><mi>u</mi><mi>x</mi></msub><mo>,</mo><msub><mi>u</mi><mi>y</mi></msub><mo>]</mo></math>.<br/> Wtedy układ <br/>
+	<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mrow><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>=</mo><msub><mi>x</mi><mi>A</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>x</mi></msub></mtd></mtr><mtr><mtd><mi>y</mi><mo>=</mo><msub><mi>y</mi><mi>A</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>y</mi></msub></mtd></mtr></mtable><mo>&#xA0;</mo><mi>d</mi><mi>l</mi><mi>a</mi><mo>&#xA0;</mo></mrow></mfenced><mi>t</mi><mo>&#x2208;</mo><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></math><br/>
+	opisuje odcinek o końcach A i B. Jeśli <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi><mo>&#x2208;</mo><mi mathvariant="normal">&#x211D;</mi><mo>&#xA0;</mo></math> to powyższy układ opisuje prostą przechodzącą przez punkty A i B.
+	Poniżej przedstawię przykłady krzywych opisanych parametrycznie. 
+
+	
+</div>
+<div class="row">
+	
+ 
+</div>
+
+						
+					
+				</div>
+			</div>
+
+
+			<div class="row div-breaker"><div style="color: white">Zagadnienie 5: <br/><h1>
+			Przedstawienie wybranych krzywych</h1></div></div>
+
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+
+						<p>
+						Przedstawię tu kilka krzywych:
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+						<ul>
+							<li>
+								Spirala Archimedesa
+							</li>
+							<li>
+								Ślimak Pascala
+							</li>
+							<li>
+								Kardioida
+							</li>
+							<li>
+								Cysoida Dioklesa
+							</li>
+						</ul>	
+						</div>
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+						<ul>
+							<li>
+								Krzywa motylkowa
+							</li>
+							<li>
+								Figura Lissajous
+							</li>
+							<li>
+								Krzywa Beziera
+							</li>
+							<li>
+								I moją sugerowaną krzywą
+							</li>
+						</ul>	
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<img src="img/krzywe/Ospirala.png" width="300" height="300" alt="Spirala Archimedesa">
+						</div>
+						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+							<h3 class="txt-center">Spirala Archimedesa</h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>a</mi><mo>&#xB7;</mo><mi>t</mi><mo>&#xB7;</mo><mi>sin</mi><mo>(</mo><mi>t</mi><mo>)</mo></mtd></mtr><mtr><mtd><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>a</mi><mo>&#xB7;</mo><mi>t</mi><mo>&#xB7;</mo><mi>cos</mi><mo>(</mo><mi>t</mi><mo>)</mo></mtd></mtr></mtable></mfenced></math>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<img src="img/krzywe/Opascal.png" width="300" height="300" alt="Ślimak Pascala">
+						</div>
+						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+							<h3 class="txt-center">Ślimak Pascala</h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>a</mi><mo>&#xB7;</mo><mi>cos</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>+</mo><mi>b</mi><mo>)</mo><mo>&#xB7;</mo><mi>sin</mi><mo>(</mo><mi>t</mi><mo>)</mo></mtd></mtr><mtr><mtd><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mo>(</mo><mi>a</mi><mo>&#xB7;</mo><mi>cos</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>+</mo><mi>b</mi><mo>)</mo><mo>&#xB7;</mo><mi>cos</mi><mo>(</mo><mi>t</mi><mo>)</mo></mtd></mtr></mtable></mfenced></math>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<img src="img/krzywe/Okard.png" width="300" height="300" alt="Kardioida">
+						</div>
+						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+							<h3 class="txt-center">Kardioida</h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>a</mi><mo>&#xB7;</mo><mo>(</mo><mn>2</mn><mo>&#xB7;</mo><mi>cos</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>-</mo><mi>cos</mi><mo>(</mo><mn>2</mn><mo>&#xB7;</mo><mi>t</mi><mo>)</mo><mo>)</mo></mtd></mtr><mtr><mtd><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>a</mi><mo>&#xB7;</mo><mo>(</mo><mn>2</mn><mo>&#xB7;</mo><mi>sin</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>-</mo><mi>sin</mi><mo>(</mo><mn>2</mn><mo>&#xB7;</mo><mi>t</mi><mo>)</mo><mo>)</mo></mtd></mtr></mtable></mfenced></math>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<img src="img/krzywe/Odiok.png" width="300" height="300" alt="Cysoida Dioklesa">
+						</div>
+						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+							<h3 class="txt-center">Cysoida Dioklesa</h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&#xA0;</mo><mo>=</mo><mo>&#xA0;</mo><mfrac><mrow><mn>2</mn><mi>a</mi><msup><mi>t</mi><mn>2</mn></msup></mrow><mrow><mn>1</mn><mo>+</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac></mtd></mtr><mtr><mtd><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&#xA0;</mo><mo>=</mo><mo>&#xA0;</mo><mfrac><mrow><mn>2</mn><mi>a</mi><msup><mi>t</mi><mn>3</mn></msup></mrow><mrow><mn>1</mn><mo>+</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac></mtd></mtr></mtable></mfenced></math>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<img src="img/krzywe/Omotylkowa.png" width="300" height="300" alt="Krzywa motylkowa">
+						</div>
+						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+							<h3 class="txt-center">Krzywa motylkowa</h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>sin</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&#xA0;</mo><mo>(</mo><msup><mi>e</mi><mrow><mi>cos</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msup><mo>-</mo><mn>2</mn><mi>cos</mi><mo>(</mo><mn>4</mn><mi>t</mi><mo>)</mo><mo>&#xA0;</mo><mo>-</mo><mo>&#xA0;</mo><msup><mi>sin</mi><mn>5</mn></msup><mo>(</mo><mfrac><mi>t</mi><mn>12</mn></mfrac><mo>)</mo><mo>)</mo></mtd></mtr><mtr><mtd><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>cos</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&#xA0;</mo><mo>(</mo><msup><mi>e</mi><mrow><mi>cos</mi><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msup><mo>-</mo><mn>2</mn><mi>cos</mi><mo>(</mo><mn>4</mn><mi>t</mi><mo>)</mo><mo>&#xA0;</mo><mo>-</mo><mo>&#xA0;</mo><msup><mi>sin</mi><mn>5</mn></msup><mo>(</mo><mfrac><mi>t</mi><mn>12</mn></mfrac><mo>)</mo><mo>)</mo></mtd></mtr></mtable></mfenced></math>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<img src="img/krzywe/Olasso.png" width="300" height="300" alt="Krzywa Lissajous">
+						</div>
+						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+							<h3 class="txt-center">Krzywa Lissajous</h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>a</mi><mo>&#xB7;</mo><mi>sin</mi><mo>(</mo><mi>t</mi><mo>)</mo></mtd></mtr><mtr><mtd><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><mi>a</mi><mo>&#xB7;</mo><mi>sin</mi><mo>(</mo><mi>b</mi><mo>&#xB7;</mo><mi>t</mi><mo>+</mo><mi>c</mi><mo>)</mo></mtd></mtr></mtable></mfenced></math>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
+							<img src="img/krzywe/bezier.png" width="400" height="250" alt="Krzywa Beziera">
+							<p class="adno">źródło: wikipedia.org</p>
+						</div>
+						<div class="col-sm-12 col-md-7 col-lg-7 col-xl-7">
+							<h3 class="txt-center">Krzywa Beziera</h3>
+							<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><msub><mi>x</mi><mi>A</mi></msub><mo>(</mo><mn>1</mn><mo>-</mo><mi>t</mi><msup><mo>)</mo><mn>3</mn></msup><mo>+</mo><mn>3</mn><msub><mi>x</mi><mi>B</mi></msub><mi>t</mi><mo>(</mo><mn>1</mn><mo>-</mo><mi>t</mi><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mn>3</mn><msub><mi>x</mi><mi>C</mi></msub><msup><mi>t</mi><mn>2</mn></msup><mo>(</mo><mn>1</mn><mo>-</mo><mi>t</mi><mo>)</mo><mo>+</mo><msub><mi>x</mi><mi>D</mi></msub><msup><mi>t</mi><mn>3</mn></msup></mtd></mtr><mtr><mtd><mi>y</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><msub><mi>y</mi><mi>A</mi></msub><mo>(</mo><mn>1</mn><mo>-</mo><mi>t</mi><msup><mo>)</mo><mn>3</mn></msup><mo>+</mo><mn>3</mn><msub><mi>y</mi><mi>B</mi></msub><mi>t</mi><mo>(</mo><mn>1</mn><mo>-</mo><mi>t</mi><msup><mo>)</mo><mn>2</mn></msup><mo>+</mo><mn>3</mn><msub><mi>y</mi><mi>C</mi></msub><msup><mi>t</mi><mn>2</mn></msup><mo>(</mo><mn>1</mn><mo>-</mo><mi>t</mi><mo>)</mo><mo>+</mo><msub><mi>y</mi><mi>D</mi></msub><msup><mi>t</mi><mn>3</mn></msup></mtd></mtr></mtable></mfenced></math>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+			<br/>
+			<h3 class="text-center">Generator Krzywej Beziera dla 4 punktów</h3>
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+							<canvas id="bezier_canvas" class="shadow" width="500" height="500"></canvas>
+							<input type="button" id="bezier_clear" value="Wyczyść">
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+							Krzywe Beziera są bardzo rozpowszechnione w programach graficznych do tworzenia krzywych. Korzysta z nich np. Adobe czy Corel.
+							Przy ich pomocy można w prosty sposób modelować różne obiekty. Trudno za pomocą jednej krzywej przedstawiać skomplikowane kształty. Przeważnie używa się krzywych Béziera niewielkiego stopnia, a umiejętnie je łącząc uzyskuje się skomplikowane sceny.
+
+							Krztałt krzywej Beziera wyznaczany jest przez ustalenie tzw. punktów kontrolnych, na powyższym rysunku są to punkty: A, B, C, D.
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<div class="inside">
+				<div class="row">
+				<br/>
+				<h3 class="text-center">Propozycja mojej krzywej</h3>
+				
+Przedstawię propozycję krzywej wyznaczonej przez trzy niewspółliniowe punkty <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>A</mi><mo>=</mo><mo>(</mo><msub><mi>x</mi><mi>A</mi></msub><mo>,</mo><msub><mi>y</mi><mi>A</mi></msub><mo>)</mo><mo>,</mo><mo>&#xA0;</mo><mi>B</mi><mo>=</mo><mo>(</mo><msub><mi>x</mi><mi>B</mi></msub><mo>,</mo><msub><mi>y</mi><mi>B</mi></msub><mo>)</mo><mo>,</mo><mo>&#xA0;</mo><mi>C</mi><mo>=</mo><mo>(</mo><msub><mi>x</mi><mi>C</mi></msub><mo>,</mo><msub><mi>y</mi><mi>C</mi></msub><mo>)</mo></math>.<br/> Rozpatrzmy wektory <math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>&#x21C0;</mo></mover><mo>=</mo><mo>[</mo><msub><mi>u</mi><mi>x</mi></msub><mo>,</mo><msub><mi>u</mi><mi>y</mi></msub><mo>]</mo><mo>,</mo><mo>&#xA0;</mo><mover><mrow><mi>B</mi><mi>C</mi></mrow><mo>&#x21C0;</mo></mover><mo>=</mo><mo>[</mo><msub><mi>w</mi><mi>x</mi></msub><mo>,</mo><msub><mi>w</mi><mi>y</mi></msub><mo>]</mo></math>. Każdy punkt odcinka AB można opisać jako <br/>
+ <math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mrow><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>=</mo><msub><mi>x</mi><mi>A</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>x</mi></msub></mtd></mtr><mtr><mtd><mi>y</mi><mo>=</mo><msub><mi>y</mi><mi>B</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>y</mi></msub></mtd></mtr></mtable><mo>&#xA0;</mo><mi>d</mi><mi>l</mi><mi>a</mi><mo>&#xA0;</mo></mrow></mfenced><mi>t</mi><mo>&#x2208;</mo><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></math>
+ <br/>Z własności działań na wektorach wynika, że dowolny punkt odcinka AC opisuje układ<br/>
+ <math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mrow><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>=</mo><msub><mi>x</mi><mi>A</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>x</mi></msub><mo>&#xA0;</mo><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>w</mi><mi>x</mi></msub></mtd></mtr><mtr><mtd><mi>y</mi><mo>=</mo><msub><mi>y</mi><mi>B</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>y</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>w</mi><mi>y</mi></msub></mtd></mtr></mtable><mo>&#xA0;</mo><mo>&#xA0;</mo><mi>d</mi><mi>l</mi><mi>a</mi><mo>&#xA0;</mo></mrow></mfenced><mi>t</mi><mo>&#x2208;</mo><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></math><br/> Jeśli parametr <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>t</mi></math> występujący przed współrzędnymi wektora <math xmlns="http://www.w3.org/1998/Math/MathML"><mo>&#xA0;</mo><mover><mrow><mi>B</mi><mi>C</mi></mrow><mo>&#x21C0;</mo></mover></math> zastąpimy funkcją <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math> określoną na odcinku <math xmlns="http://www.w3.org/1998/Math/MathML"><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></math> , spełniającą dodatkowo warunki: <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi><mo>(</mo><mn>0</mn><mo>)</mo><mo>=</mo><mn>0</mn><mo>&#xA0;</mo><mi>o</mi><mi>r</mi><mi>a</mi><mi>z</mi><mo>&#xA0;</mo><mi>f</mi><mo>(</mo><mn>1</mn><mo>)</mo><mo>=</mo><mn>1</mn></math>, dostaniemy równanie parametryczne krzywej łączącej punkty A oraz C.<br/>
+ 
+<math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="{" close=""><mrow><mtable columnalign="left"><mtr><mtd><mi>x</mi><mo>=</mo><msub><mi>x</mi><mi>A</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>x</mi></msub><mo>&#xA0;</mo><mo>+</mo><mi>f</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&#xB7;</mo><msub><mi>w</mi><mi>x</mi></msub></mtd></mtr><mtr><mtd><mi>y</mi><mo>=</mo><msub><mi>y</mi><mi>B</mi></msub><mo>+</mo><mi>t</mi><mo>&#xB7;</mo><msub><mi>u</mi><mi>y</mi></msub><mo>+</mo><mi>f</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>&#xB7;</mo><msub><mi>w</mi><mi>y</mi></msub></mtd></mtr></mtable><mo>&#xA0;</mo><mo>&#xA0;</mo><mi>d</mi><mi>l</mi><mi>a</mi><mo>&#xA0;</mo></mrow></mfenced><mi>t</mi><mo>&#x2208;</mo><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></math>.<br/> Jako funkcję <math xmlns="http://www.w3.org/1998/Math/MathML"><mo>&#xA0;</mo><mi>f</mi></math> możemy przyjąć np. <math xmlns="http://www.w3.org/1998/Math/MathML"> <mo>&#xA0;</mo><mi>f</mi><mo>(</mo><mi>t</mi><mo>)</mo><mo>=</mo><msup><mi>t</mi><mn>2</mn></msup></math>. <br>
+Jeśli dane są cztery punkty A,B,C,D krzywą konstruuje następująco:<br>
+- wyznaczam środek S odcinka BC<br>
+- następnie przeprowadzam powyżej opisany algorytm dla trójkatów ABS oraz SCD<br>
+
+Kształt krzywej można moderować, dobierając odpowiednio funkcję <math xmlns="http://www.w3.org/1998/Math/MathML"><mo>&#xA0;</mo><mi>f</mi></math>, oraz ustalając inny punkt odcinka BC niekoniecznie jego środek. Wadą algorytmu jest fakt, że krzywa traci gładkość w punkcie S. 
+				
+</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+			<img src="img/rys2.png" alt="ilustracja" />
+		</div>
+
+		<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+			<img src="img/rys1.png" alt="ilustracja" />
+		</div>
+	</div>
+
+
+				<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+							<h3 class="text-center">Generator krzywej dla 3 punktów</h3>
+							<canvas id="krzywa1_canvas" class="shadow" width="500" height="500"></canvas>
+							<input type="button" id="krzywa1_clear" value="Wyczyść">
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+							<h3 class="text-center">Generator krzywej dla 4 punktów</h3>
+							<canvas id="krzywa2_canvas" class="shadow" width="500" height="500"></canvas>
+							<input type="button" id="krzywa2_clear" value="Wyczyść">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row div-breaker"><div style="color: white">Zagadnienie 6: <br/><h1>Animacja i zmiana parametrów krzywych</h1></div></div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<h3 class="txt-center">Uwaga !</h3>
+						<p>
+						Przy bardziej skomplikowanych działaniach należy użyć składni kodu javascript.<br/>
+						Wypisze poniżej kilka przykładowych działań:
+						<ul>
+							<li>PI - Math.PI</li>
+							<li>potęga - Math.pow("co", "do jakiej potęgi")</li>
+							<li>pierwiastek - Math.sqrt()</li>
+							<li>sinus - Math.sin()</li>
+							<li>cosinus - Math.cos()</li>
+							<li>cosinus - Math.cos()</li>
+						</ul>
+						Więcej można znaleść na na stronie <a href="http://www.w3schools.com/js/js_math.asp">http://www.w3schools.com/js/js_math.asp</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+							<canvas id="animacje" class="shadow" width="500" height="500"></canvas>
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+							<label>Typ krzywej</label>
+							
+							
+							<select id="anim_select" autocomplete="off">
+								<option value="0">Spirala Archimedesa</option>
+								<option value="1">Ślimak Pascala</option>
+								<option value="2">Kardioida</option>
+								<option value="3">Cysoida Dioklesa</option>
+								<option value="4">Krzywa motylkowa</option>
+								<option value="5">Krzywa Lissajous</option>
+							</select>
+
+							<br/>
+							<input type="button" id="anim_button_start" value="Animuj">
+							<input type="button" id="anim_button_clear" value="Wyczyść">
+							<a class="popup-modal guzik" href="#pomoc" id="anim_button_help">Pomoc</a>
+							<p id="animator_err" class="warning">Na tej przeglądarce generator wolno działa wraz z otwartymi narzędziami dla developera</p>
+
+								<div id="pomoc" class="mfp-hide white-popup-block">
+									<h1>Pomoc</h1>
+									<p>Generator jest w pełni otwarty co znaczy że można zmieniać dowolnie wzory krzywych jak i wpisywać nowe, używając składni języka JavaScript.
+
+									<br/>
+									Przygotowałem 6 krzywych które można wybrać za pomocą <b>rozwijanego pola</b> nad guzikami funkcyjnymi.
+									<br/>
+
+									W opcjach można zmieniać <b>kolor rysowania</b> który można zapisać w postaci szesnaskowej np "#000000" lub RGB np "rgb(255,0,0)".
+									<br/>
+
+									<b>Czas rysowania</b> liczony w milisekundach, określa postój czasowy funkcji przy każdym przejściu.
+
+									<b>Zakres parametru t</b> to wielkość którą osiągnie t przy zakończeniu rysowania<br/>
+
+									<b>Krok</b> to liczba która jest dodawana do parametru t po przejście pętli<br/>
+
+									<b>Dokładność</b> to pokazywana podczas jednego przejścia część krzywej, im mniejsza jest ta wartość tym dokładniejsza będzie krzywa lecz wiąże się to z czasem rysowania.<br/>
+
+									Tabela <b>Parametry</b> to pola służące do ustalania wartości liczbowych dla parametrów a,b,c,d a następnie wykorzystaniu ich do wprowadzania równań parametrycznych krzywych.
+									
+									</p>
+									<p><input class="popup-modal-dismiss" type="button" value="Wyjdz"></p>
+								</div>
+
+							<br/>
+							<br/>
+							<div class="tab-content" id="anim-tab-content">
+								
+
+								<div id="spirala" class="collapse active">
+									<h3>Wzór:</h3>
+									<label>X:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="0_kod_x" style='width:100%' value="2 * t * Math.sin(t)"><br/>
+									<label>Y:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="0_kod_y" style='width:100%' value="2 * t * Math.cos(t)"><br/><br/>
+									<h3>Opcje:</h3>
+									<label>Kolor animacji:</label>
+									<input type="text" autocomplete="off" id="0_input_color" value="#000000"><br/>
+									<label>Czas rysowania:</label>
+									<input type="text" autocomplete="off" id="0_input_time" value="20"><br/>
+									<label>Zakres parametru T:</label>
+									<input type="text" autocomplete="off" id="0_input_dlg" value="100"><br/>
+									<label>Początkowa wartość T:</label>
+									<input type="text" autocomplete="off" id="0_input_la" value="0"><br/>
+									<label>Krok:</label>
+									<input type="text" autocomplete="off" id="0_input_kr" value="0.001"><br/>
+									<label>Dokladnosc:</label>
+									<input type="text" autocomplete="off" id="0_input_dok" value="0.5"><br/>
+									<label>Parametry:</label><br/>
+									<label>a:</label>
+									<input type="text" autocomplete="off" id="0_param_a" value="0"><br/>
+									<label>b:</label>
+									<input type="text" autocomplete="off" id="0_param_b" value="0"><br/>
+									<label>c:</label>
+									<input type="text" autocomplete="off" id="0_param_c" value="0"><br/>
+									<label>d:</label>
+									<input type="text" autocomplete="off" id="0_param_d" value="0"><br/>
+								</div>
+
+
+								<div id="pascal" class="collapse">
+									<h3>Wzór:</h3>
+									<label>X:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="1_kod_x" style='width:100%' value="(-150 * Math.cos(t) + 50) * Math.sin(t)"><br/>
+									<label>Y:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="1_kod_y" style='width:100%' value="(-150 * Math.cos(t) + 50) * Math.cos(t)"><br/><br/>
+									<h3>Opcje:</h3>
+									<label>Kolor animacji:</label>
+									<input type="text" autocomplete="off" id="1_input_color" value="#000000"><br/>
+									<label>Czas rysowania:</label>
+									<input type="text" autocomplete="off" id="1_input_time" value="20"><br/>
+									<label>Zakres parametru T:</label>
+									<input type="text" autocomplete="off" id="1_input_dlg" value="6.31"><br/>
+									<label>Początkowa wartość T:</label>
+									<input type="text" autocomplete="off" id="1_input_la" value="0"><br/>
+									<label>Krok:</label>
+									<input type="text" autocomplete="off" id="1_input_kr" value="0.001"><br/>
+									<label>Dokladnosc:</label>
+									<input type="text" autocomplete="off" id="1_input_dok" value="0.05"><br/>
+									<label>Parametry:</label><br/>
+									<label>a:</label>
+									<input type="text" autocomplete="off" id="1_param_a" value="0"><br/>
+									<label>b:</label>
+									<input type="text" autocomplete="off" id="1_param_b" value="0"><br/>
+									<label>c:</label>
+									<input type="text" autocomplete="off" id="1_param_c" value="0"><br/>
+									<label>d:</label>
+									<input type="text" autocomplete="off" id="1_param_d" value="0"><br/>
+								</div>
+
+								<div id="kardioida" class="collapse">
+									<h3>Wzór:</h3>
+									<label>X:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="2_kod_x" style='width:100%' value="a*(2*Math.cos(t)-Math.cos(2*t))"><br/>
+									<label>Y:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="2_kod_y" style='width:100%' value="a*(2*Math.sin(t)-Math.sin(2*t))"><br/><br/>
+									<h3>Opcje:</h3>
+									<label>Kolor animacji:</label>
+									<input type="text" autocomplete="off" id="2_input_color" value="#000000"><br/>
+									<label>Czas rysowania:</label>
+									<input type="text" autocomplete="off" id="2_input_time" value="20"><br/>
+									<label>Zakres parametru T:</label>
+									<input type="text" autocomplete="off" id="2_input_dlg" value="6.31"><br/>
+									<label>Początkowa wartość T:</label>
+									<input type="text" autocomplete="off" id="2_input_la" value="0"><br/>
+									<label>Krok:</label>
+									<input type="text" autocomplete="off" id="2_input_kr" value="0.001"><br/>
+									<label>Dokladnosc:</label>
+									<input type="text" autocomplete="off" id="2_input_dok" value="0.05"><br/>
+									<label>Parametry:</label><br/>
+									<label>a:</label>
+									<input type="text" autocomplete="off" id="2_param_a" value="60"><br/>
+									<label>b:</label>
+									<input type="text" autocomplete="off" id="2_param_b" value="0"><br/>
+									<label>c:</label>
+									<input type="text" autocomplete="off" id="2_param_c" value="0"><br/>
+									<label>d:</label>
+									<input type="text" autocomplete="off" id="2_param_d" value="0"><br/>
+								</div>
+
+								<div id="diokles" class="collapse">
+									<h3>Wzór:</h3>
+									<label>X:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="3_kod_x" style='width:100%' value="2*a*(Math.tan(t) - 1/2*Math.sin(2*t))"><br/>
+									<label>Y:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="3_kod_y" style='width:100%' value="2*a*Math.sin(t)*Math.sin(t)"><br/><br/>
+									<h3>Opcje:</h3>
+									<label>Kolor animacji:</label>
+									<input type="text" autocomplete="off" id="3_input_color" value="#000000"><br/>
+									<label>Czas rysowania:</label>
+									<input type="text" autocomplete="off" id="3_input_time" value="20"><br/>
+									<label>Zakres parametru T:</label>
+									<input type="text" autocomplete="off" id="3_input_dlg" value="3"><br/>
+									<label>Początkowa wartość T:</label>
+									<input type="text" autocomplete="off" id="3_input_la" value="0"><br/>
+									<label>Krok:</label>
+									<input type="text" autocomplete="off" id="3_input_kr" value="0.001"><br/>
+									<label>Dokladnosc:</label>
+									<input type="text" autocomplete="off" id="3_input_dok" value="0.03"><br/>
+									<label>Parametry:</label><br/>
+									<label>a:</label>
+									<input type="text" autocomplete="off" id="3_param_a" value="50"><br/>
+									<label>b:</label>
+									<input type="text" autocomplete="off" id="3_param_b" value="0"><br/>
+									<label>c:</label>
+									<input type="text" autocomplete="off" id="3_param_c" value="0"><br/>
+									<label>d:</label>
+									<input type="text" autocomplete="off" id="3_param_d" value="0"><br/>
+								</div>
+
+								<div id="motyl" class="collapse">
+									<h3>Wzór:</h3>
+									<label>X:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="4_kod_x" style='width:100%' value="50 * Math.sin(t) * (Math.exp(Math.cos(t)) - 2 *Math.cos(4*t) - Math.pow(Math.sin(t/12), 5))"><br/>
+									<label>Y:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="4_kod_y" style='width:100%' value="50 * Math.cos(t) * (Math.exp(Math.cos(t)) - 2 *Math.cos(4*t) - Math.pow(Math.sin(t/12), 5))"><br/><br/>
+									<h3>Opcje:</h3>
+									<label>Kolor animacji:</label>
+									<input type="text" autocomplete="off" id="4_input_color" value="#000000"><br/>
+									<label>Czas rysowania:</label>
+									<input type="text" autocomplete="off" id="4_input_time" value="20"><br/>
+									<label>Zakres parametru T:</label>
+									<input type="text" autocomplete="off" id="4_input_dlg" value="60"><br/>
+									<label>Początkowa wartość T:</label>
+									<input type="text" autocomplete="off" id="4_input_la" value="0"><br/>
+									<label>Krok:</label>
+									<input type="text" autocomplete="off" id="4_input_kr" value="0.001"><br/>
+									<label>Dokladnosc:</label>
+									<input type="text" autocomplete="off" id="4_input_dok" value="0.1"><br/>
+									<label>Parametry:</label><br/>
+									<label>a:</label>
+									<input type="text" autocomplete="off" id="4_param_a" value="0"><br/>
+									<label>b:</label>
+									<input type="text" autocomplete="off" id="4_param_b" value="0"><br/>
+									<label>c:</label>
+									<input type="text" autocomplete="off" id="4_param_c" value="0"><br/>
+									<label>d:</label>
+									<input type="text" autocomplete="off" id="4_param_d" value="0"><br/>
+								</div>
+
+								<div id="lasso" class="collapse">
+									<h3>Wzór:</h3>
+									<label>X:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="5_kod_x" style='width:100%' value="150 * Math.sin(t)"><br/>
+									<label>Y:&nbsp;&nbsp;</label><input autocomplete="off" type="text" id="5_kod_y" style='width:100%' value="75 * Math.sin(5 * t + 200)"><br/><br/>
+									<h3>Opcje:</h3>
+									<label>Kolor animacji:</label>
+									<input type="text" autocomplete="off" id="5_input_color" value="#000000"><br/>
+									<label>Czas rysowania:</label>
+									<input type="text" autocomplete="off" id="5_input_time" value="20"><br/>
+									<label>Zakres parametru T:</label>
+									<input type="text" autocomplete="off" id="5_input_dlg" value="6.31"><br/>
+									<label>Początkowa wartość T:</label>
+									<input type="text" autocomplete="off" id="5_input_la" value="0"><br/>
+									<label>Krok:</label>
+									<input type="text" autocomplete="off" id="5_input_kr" value="0.001"><br/>
+									<label>Dokladnosc:</label>
+									<input type="text" autocomplete="off" id="5_input_dok" value="0.04"><br/>
+									<label>Parametry:</label><br/>
+									<label>a:</label>
+									<input type="text" autocomplete="off" id="5_param_a" value="0"><br/>
+									<label>b:</label>
+									<input type="text" autocomplete="off" id="5_param_b" value="0"><br/>
+									<label>c:</label>
+									<input type="text" autocomplete="off" id="5_param_c" value="0"><br/>
+									<label>d:</label>
+									<input type="text" autocomplete="off" id="5_param_d" value="0"><br/>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row div-breaker"><div style="color: white">Zagadnienie 7: <br/><h1>Wykorzystanie zdobytej wiedzy</h1></div></div>
+
+			<div class="container div-temat">
+				<div class="row">
+					<div class="inside">
+						<h3 class="txt-center">Tworzenie napisu zobaczyć matematykę!</h3>
+						<p id="napis-err-dps" class="warning text-center" style="display: none; border: 1px solid red">Z tak małym ekranem nie możesz poprawnie zobaczyć animacji generatora<br/>potrzebujesz okna szerokiego co najmniej na 1024px
+						<input type="button" style="display: block;margin-left: auto;margin-right: auto;" id="napis-err-fix" value="Włącz generator">
+						</p>
+
+						<div class="napis">
+							
+							<div class="row">
+								<canvas style="display: block;" id="napis" width="1024" height="340"></canvas>
+							</div>
+							<br/>
+							<br/>
+								<input type="button" style="display: block;margin-left: auto;margin-right: auto;" id="napis_button_start" value="Rysuj!">
+							<br/>
+							<br/>
+							<div class="row">
+								<div class="napisy-koncowe text-center">
+								<h3>W rolach wystąpili:</h3>
+								<p>
+									&nbsp;&nbsp;
+										Trzy odcinki jako litera "Z"<br/>
+									&nbsp;&nbsp;
+										Okrąg jako litera "O"<br/>
+									&nbsp;&nbsp;
+										Prosta i dwie funkcje sinus jako "B"<br/>
+									&nbsp;&nbsp;
+										Cysoida Dioklesa i odcinki "A"<br/>
+									&nbsp;&nbsp;
+										Okrąg z schowanym brzuchem jako "C"<br/>
+									&nbsp;&nbsp;
+										Funkcja kwadratowa i odcinek jako "Y"<br/>
+									&nbsp;&nbsp;
+										"C" razem z odcinkiem jako "Ć"<br/>
+									&nbsp;&nbsp;
+										Cztery odcinki jako "M"<br/>
+									&nbsp;&nbsp;
+										Dwa odcinki jako "T"<br/>
+									&nbsp;&nbsp;
+										Cztery odcinki jako "E"<br/>
+									&nbsp;&nbsp;
+										Trzy odcinki jako "K"<br/>
+									&nbsp;&nbsp;
+										"E" razem z odcinkiem jako "Ę"
+								</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container div-temat">
+				<br/>
+				<h3 class="text-center">Szyfry programowane za pomocą wektów i łamanych</h3>
+				<div class="row">
+					<div class="inside">
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<div class="row">
+								<canvas id="szyfry" class="shadow" width="300" height="500"></canvas>
+							</div>
+							
+							<div class="row">
+							<a href="javascript:void(0)" id="download_szyfr" class="guzik">Pobierz</a>
+							<label class="fileupl">
+							    <input type="file" id="imageLoader" required/>
+							    <span>Wczytaj obrazek</span>
+							</label>
+							</div>
+							<div class="row">
+							<br/>
+							<br/>
+							Cytat
+							<br/>
+							<img src="img/cytat.png" alt="cytat" class="shadow" />
+							</div>
+						</div>
+						
+						<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+							<div class="row">
+								<div class="progress">
+									<div id="szyfr_progress" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+									style="width:0%">
+									0%
+									</div>
+								</div>
+								<input type="button" id="szyfry_clear" value="Wyczyść">
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+									<h3 class="text-center">Szyfrowanie</h3>
+									<input type="text" id="szyfry_input" style="width:100%"><br/><br/>
+									<input type="button" id="szyfry_start" value="Szyfruj">
+									
+								</div>
+								<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+									<h3 class="text-center">Deszyfrowanie</h3>
+									<input type="text" id="szyfry_output" style="width:100%"><br/><br/>
+									<input type="button" id="szyfry_start_o" value="Odszyfruj">
+								</div>
+							</div>
+							<div class="row szyfry-text">
+								Za pomocą pojęcia wektora można w interesujący sposób zakodować ciągi znaków. Przedstawiony algorytm koduje i dekoduje zdania zbudowane z małych liter alfabetu bez uwzględnienia polskich znaków. Opis algorytmu:<br>
+- przyporządkujmy każdej literze alfabetu oraz znakowi spacji przedziały liczbowe tj. spacja [10,19], litera a [20,29], litera b [30,39] itd.<br>
+- sposób kodowania pokażemy na przykładzie ciągu "ab" <br>
+<img src="img/rys3.png" alt="ilustracja" class="ilus">
+- na polu canvas wybieramy punkt o współrzędnych A(10,y) gdzie y jest liczbą losowa z przedziału [0, wysokość canvas]<br>
+- kodowanie litery a wygląda następująco: wybrany zostaje punkt B(15,y) gdzie y jest dobrane tak, aby długośc wektora <math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo>&#x21C0;</mo></mover></math> była liczbą z przedziału przyporządkowanego literze a czyli [20,29] <br>
+- aby zakodować literę b, wybieramy punkt C(20,y)  gdzie y jest dobrane tak, aby długość wektora <math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mrow><mi>B</mi><mi>C</mi></mrow><mo>&#x21C0;</mo></mover></math> była liczbą z przedziału przyporządkowanego literze b, czyli [30,39] <br>
+- w przypadku bardziej złożonego ciagu postępowanie kontynuujemy analogicznie<br>
+- dostajemy w ten sposób ciąg punktów, które po połączeniu tworzą łamaną, kodującą nasz ciąg znaków<br>
+
+Aby łamana nie była "rosnąca" lub "malejąca" algorytm działa tak, iż dobiera y, startując losowo od góry lub dołu pola canvas. Dzięki temu oraz dzięki losowemu wyborowi punktu A łamane kodujące jeden i ten sam wyraz prawie zawsze różnią się od siebie. 
+
+Algorytm dekodujący polega na znalezieniu wierzchołków łamanej policzeniu długości jej składowych oraz przyporządkowaniu długościom odpowiednich znaków. Poniższy rysunek przedstawia łamaną, kodującą złotą myśl Charle'sa Darwina.<br/>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		
+		<footer id="footer">
+			<div class="container">
+				<div class="row" style="background-color: #fff;  border-radius: 25px;">
+				<div class="col-sm-12 col-md-2 col-lg-2 col-xl-2" >
+					<div class="logo">&nbsp;</div>
+				</div>
+				<div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 copyright vcenter">
+				<h3>Stworzone przez:</h3>
+				<h4>Bąk Cezary <br/>
+				Zespół szkół im. Stanisława Staszica w Staszowie</h4>
+				</div>
+				</div>	
+			</div>
+		</footer>
+		<a href="#" class="gotop">&#x25B2;</a>
+			
+		
+		<script src="js/bootstrap.js"></script>
+		<script src="js/jquery.magnific-popup.min.js"></script>
+		<script type="text/javascript" src="js/napis.js"></script>
+		<script type="text/javascript" src="js/scripts.js"></script>	
+	</body>
+</html>
